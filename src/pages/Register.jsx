@@ -18,6 +18,7 @@ const Register = () => {
   });
 
   const [errors,setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e)=>{
     setForm({...form,[e.target.name]:e.target.value});
@@ -37,6 +38,7 @@ const Register = () => {
     if(Object.keys(newErrors).length > 0) return;
 
     try {
+      setLoading(true)   //START Loading
 
       const res = await axios.post(
         `${API}/register`,
@@ -52,6 +54,8 @@ const Register = () => {
 
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false)
     }
   };
 
@@ -115,11 +119,24 @@ const Register = () => {
             </p>
           )}
 
-          <button
+          {/* <button
             className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-2"
           >
             Register
-          </button>
+          </button> */}
+          <button
+  setLoading={loading}
+  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-2 flex items-center justify-center">
+
+  {loading ? (
+  <div className="flex items-center gap-2">
+    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+    <span>Registering...</span>
+  </div>
+) : (
+  "Register"
+)}
+</button>
 
         </form>
 
