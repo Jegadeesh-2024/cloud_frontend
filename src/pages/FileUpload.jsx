@@ -7,7 +7,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate, Link } from "react-router-dom";
 
 function FileUpload() {
-  const API = "http://localhost:5000/api";
+  // const API = "http://localhost:5000/api";
+  const API = import.meta.env.VITE_API_URL;
 
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);

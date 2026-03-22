@@ -8,6 +8,8 @@ import bg from "../assets/bg.jpg";
 const Register = () => {
 
   const navigate = useNavigate();
+   const API = import.meta.env.VITE_API_URL;
+
 
   const [form,setForm] = useState({
     name:"",
@@ -37,7 +39,7 @@ const Register = () => {
     try {
 
       const res = await axios.post(
-        "http://localhost:5000/api/register",
+        `${API}/register`,
         form
       );
 

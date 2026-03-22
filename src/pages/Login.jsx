@@ -8,6 +8,8 @@ import bg from "../assets/bg.jpg";
 const Login = () => {
 
   const navigate = useNavigate();
+  const API = import.meta.env.VITE_API_URL;
+  const AUTH_API=import.meta.env.VITE_AUTH_API_URL;
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -46,7 +48,7 @@ const Login = () => {
     try {
 
       const res = await axios.post(
-        "http://localhost:5000/api/login",
+        `${API}/login`,
         form
       );
 
@@ -119,7 +121,7 @@ const Login = () => {
         <p className="text-white text-center mt-3">OR</p>
 
         <button
-          onClick={()=>window.open("http://localhost:5000/auth/google","_self")}
+          onClick={()=>window.open(`${AUTH_API}/google`,"_self")}
           className="w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg"
         >
           Login with Google

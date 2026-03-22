@@ -8,6 +8,8 @@ function FileTable() {
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null); // ✅ new
 
+ const API = import.meta.env.VITE_API_URL;
+
 
   const token = localStorage.getItem("token");
 
@@ -16,7 +18,7 @@ function FileTable() {
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/files",
+        `${API}/files`,
         {
           headers: { token }
         }
@@ -39,7 +41,7 @@ function FileTable() {
     try {
 
       await axios.delete(
-        `http://localhost:5000/api/files/${id}`,
+        `${API}/files/${id}`,
         {
           headers: { token }
         }
@@ -64,7 +66,7 @@ function FileTable() {
     try {
 
       await axios.put(
-        "http://localhost:5000/api/files/rename",
+       `${API}/files/rename` ,
         {
           id,
           name: newName

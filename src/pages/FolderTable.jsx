@@ -9,13 +9,14 @@ const FolderTable = () => {
   const [activeFolder, setActiveFolder] = useState(null);
 const navigate = useNavigate()
   const token = localStorage.getItem("token");
+  const API = import.meta.env.VITE_API_URL;
 
   const fetchFolders = async () => {
 
     try {
 
       const res = await axios.get(
-        "http://localhost:5000/api/folders",
+        `${API}/folders`,
         {
           headers: { token }
         }
@@ -42,7 +43,7 @@ const navigate = useNavigate()
     try {
 
       await axios.delete(
-        `http://localhost:5000/api/folders/${id}`,
+        `${API}/folders/${id}`,
         {
           headers: { token }
         }
@@ -68,7 +69,7 @@ const navigate = useNavigate()
     try {
 
       await axios.put(
-        "http://localhost:5000/api/folders/rename",
+        `${API}/folders/rename`,
         {
           id,
           name: newName
