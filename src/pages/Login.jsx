@@ -28,6 +28,7 @@ const Login = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -46,6 +47,7 @@ const Login = () => {
     if (Object.keys(newErrors).length > 0) return;
 
     try {
+      setLoading(true)
 
       const res = await axios.post(
         `${API}/login`,
@@ -111,11 +113,25 @@ const Login = () => {
             </p>
           )}
 
-          <button
+          {/* <button
             className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg mt-2"
           >
             Login
-          </button>
+          </button> */}
+          <button
+  type="submit"
+  disabled={loading}
+  className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg mt-2 flex items-center justify-center"
+>
+  {loading ? (
+    <div className="flex items-center gap-2">
+      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+      <span>Logging in...</span>
+    </div>
+  ) : (
+    "Login"
+  )}
+</button>
 
         </form>
         <p className="text-white text-center mt-3">OR</p>
