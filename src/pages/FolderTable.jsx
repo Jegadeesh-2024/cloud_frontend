@@ -133,13 +133,24 @@ const navigate = useNavigate()
                 >
                   ✏️
                 </button>
-
+{/* 
                 <button
-                  onClick={() => deleteFolder(folder.id)}
+                  onClick={(e) => 
+                    e.stopPropagation();
+                    deleteFolder(folder.id)}
                   className="text-red-500 cursor-pointer"
                 >
                   🗑️
-                </button>
+                </button> */}
+                <button
+  onClick={(e) => {
+    e.stopPropagation();   // 🔥 THIS LINE FIX
+    deleteFolder(folder.id);
+  }}
+  className="text-red-500 cursor-pointer"
+>
+  🗑️
+</button>
 
               </td>
 
