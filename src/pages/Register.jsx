@@ -1,0 +1,139 @@
+
+import React, { useState } from "react";
+import axios from "axios";
+import { useNavigate, Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import bg from "../assets/bg.jpg";
+
+const Register = () => {
+
+  const navigate = useNavigate();
+
+  const [form,setForm] = useState({
+    name:"",
+    email:"",
+    password:""
+  });
+
+  const [errors,setErrors] = useState({});
+
+  const handleChange = (e)=>{
+    setForm({...form,[e.target.name]:e.target.value});
+  };
+
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+
+    let newErrors = {};
+
+    if(!form.name) newErrors.name = "Name required";
+    if(!form.email) newErrors.email = "Email required";
+    if(!form.password) newErrors.password = "Password required";
+
+    setErrors(newErrors);
+
+    if(Object.keys(newErrors).length > 0) return;
+
+    try {
+
+      const res = await axios.post(
+        "http://localhost:5000/api/register",
+        form
+      );
+
+      if(res.data.success){
+        toast.success("Registration Successful");
+        navigate("/");
+      }else{
+        toast.error(res.data.message);
+      }
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return (
+
+    <div
+      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: `url(${bg})` }}
+    >
+
+      <div className="bg-black/40 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-96">
+
+        <h2 className="text-3xl font-bold text-white text-center mb-6">
+          Register
+        </h2>
+
+        <form onSubmit={handleSubmit}>
+
+          <input
+            type="text"
+            name="name"
+            value={form.name}
+            placeholder="Name"
+            onChange={handleChange}
+            className="w-full p-3 mb-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
+          />
+
+          {errors.name && (
+            <p className="text-red-300 text-sm mb-2">
+              {errors.name}
+            </p>
+          )}
+
+          <input
+            type="email"
+            name="email"
+            value={form.email}
+            placeholder="Email"
+            onChange={handleChange}
+            className="w-full p-3 mb-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
+          />
+
+          {errors.email && (
+            <p className="text-red-300 text-sm mb-2">
+              {errors.email}
+            </p>
+          )}
+
+          <input
+            type="password"
+            name="password"
+            value={form.password}
+            placeholder="Password"
+            onChange={handleChange}
+            className="w-full p-3 mb-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
+          />
+
+          {errors.password && (
+            <p className="text-red-300 text-sm mb-2">
+              {errors.password}
+            </p>
+          )}
+
+          <button
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-2"
+          >
+            Register
+          </button>
+
+        </form>
+
+        <p className="text-center text-gray-300 mt-4">
+          Already have account?
+          <Link to="/" className="text-blue-400 ml-1">
+            Login
+          </Link>
+        </p>
+
+      </div>
+
+    </div>
+
+  );
+
+};
+
+export default Register;
