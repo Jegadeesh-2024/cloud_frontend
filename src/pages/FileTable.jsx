@@ -117,14 +117,14 @@ function FileTable() {
 
                 <button
                   onClick={() => renameFile(file.id)}
-                  className="bg-yellow-500 text-white px-3 py-1 rounded mr-2"
+                  className="bg-yellow-500 text-white px-3 py-1 rounded mr-2 cursor-pointer"
                 >
                   Edit
                 </button>
 
                 <button
                   onClick={() => deleteFile(file.id)}
-                  className="bg-red-500 text-white px-3 py-1 rounded"
+                  className="bg-red-500 text-white px-3 py-1 rounded cursor-pointer"
                 >
                   Delete
                 </button>

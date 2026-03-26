@@ -147,27 +147,27 @@ const FileList = ({ folderId, refresh, page, setPage, setTotalPages }) => {
             <div className="flex justify-center gap-2 mt-3">
               <button
                 onClick={() => renameFile(file)}
-                className="bg-yellow-500 text-white px-2 py-1 rounded text-xs"
+                className="bg-yellow-500 text-white px-2 py-1 rounded text-xs cursor-pointer"
               >
                 Edit
               </button>
               <button
                 onClick={() => viewFile(file)}
-                className="bg-green-500 text-white px-2 py-1 rounded text-xs"
+                className="bg-green-500 text-white px-2 py-1 rounded text-xs cursor-pointer"
               >
                 View
               </button>
 
               <button
                 onClick={() => deleteFile(file.id)}
-                className="bg-red-500 text-white px-2 py-1 rounded text-xs"
+                className="bg-red-500 text-white px-2 py-1 rounded text-xs cursor-pointer"
               >
                 Delete
               </button>
 
               <button
                 onClick={() => setSelectedFile(file)}
-                className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                className="bg-blue-500 text-white px-2 py-1 rounded text-xs cursor-pointer"
               >
                 Share
               </button>
