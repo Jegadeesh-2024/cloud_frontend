@@ -131,7 +131,7 @@ const ShareModal = ({ fileId, onClose }) => {
         </button>
         <button
   onClick={handleGenerateLink}
-  className="w-full bg-green-600 text-white py-2 rounded mb-4"
+  className=" cursor-pointer w-full bg-green-600 text-white py-2 rounded mb-4"
 >
   Generate Share Link 🔗
 </button>
