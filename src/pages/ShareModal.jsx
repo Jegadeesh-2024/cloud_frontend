@@ -9,6 +9,7 @@ const ShareModal = ({ fileId, onClose }) => {
   const [permission, setPermission] = useState("view");
   const [shares, setShares] = useState([]);
   const [error, setError] = useState("");
+  const [shareLink, setShareLink] = useState("");
 
   const token = localStorage.getItem("token");
 
@@ -36,6 +37,7 @@ const ShareModal = ({ fileId, onClose }) => {
       setError("Email is required");
       return;
     }
+
 
     setError("");
 
@@ -70,6 +72,25 @@ const ShareModal = ({ fileId, onClose }) => {
       console.log(err);
     }
   };
+  // handleshare new:
+  const handleGenerateLink = async () => {
+  try {
+    const res = await axios.post(
+      `${API}/files/share/link/${fileId}`,
+      {},
+      { headers: { token } }
+    );
+
+    setShareLink(res.data.link);
+
+    // copy to clipboard
+    navigator.clipboard.writeText(res.data.link);
+
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
@@ -108,6 +129,17 @@ const ShareModal = ({ fileId, onClose }) => {
         >
           Share
         </button>
+        <button
+  onClick={handleGenerateLink}
+  className="w-full bg-green-600 text-white py-2 rounded mb-4"
+>
+  Generate Share Link 🔗
+</button>
+{shareLink && (
+  <div className="bg-gray-100 p-2 rounded text-sm break-all">
+    {shareLink}
+  </div>
+)}
 
         {/* Shared Users */}
         <h3 className="font-semibold mb-2">Shared Users</h3>
