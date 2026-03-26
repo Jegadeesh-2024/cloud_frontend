@@ -320,7 +320,7 @@ function FileUpload() {
 
                       window.open(res.data.signedUrl, "_blank");
                     }}
-                    className="bg-blue-500 text-white px-2 py-1 rounded text-xs"
+                    className="bg-blue-500 text-white px-2 py-1 rounded text-xs cursor-pointer"
                   >
                     View
                   </button>
@@ -345,7 +345,7 @@ function FileUpload() {
 
                         toast.success("Edited");
                       }}
-                      className="bg-yellow-500 text-white px-2 py-1 rounded text-xs"
+                      className="bg-yellow-500 text-white px-2 py-1 rounded text-xs cursor-pointer"
                     >
                       Edit
                     </button>
