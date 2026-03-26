@@ -4,7 +4,6 @@ import axios from "axios";
 const API = import.meta.env.VITE_API_URL;
 
 const ShareModal = ({ fileId, onClose }) => {
-
   const [email, setEmail] = useState("");
   const [permission, setPermission] = useState("view");
   const [shares, setShares] = useState([]);
@@ -17,7 +16,7 @@ const ShareModal = ({ fileId, onClose }) => {
   const fetchShares = async () => {
     try {
       const res = await axios.get(`${API}/files/shared/${fileId}`, {
-        headers: { token }
+        headers: { token },
       });
       setShares(res.data);
     } catch (err) {
@@ -38,21 +37,23 @@ const ShareModal = ({ fileId, onClose }) => {
       return;
     }
 
-
     setError("");
 
     try {
-      await axios.post(`${API}/files/share`, {
-        file_id: fileId,
-        email,
-        permission
-      }, {
-        headers: { token }
-      });
+      await axios.post(
+        `${API}/files/share`,
+        {
+          file_id: fileId,
+          email,
+          permission,
+        },
+        {
+          headers: { token },
+        },
+      );
 
       setEmail("");
       fetchShares();
-
     } catch (err) {
       console.log(err);
       setError(err.response?.data?.message || "Share failed");
@@ -63,40 +64,35 @@ const ShareModal = ({ fileId, onClose }) => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API}/files/shares/${id}`, {
-        headers: { token }
+        headers: { token },
       });
 
       fetchShares();
-
     } catch (err) {
       console.log(err);
     }
   };
   // handleshare new:
   const handleGenerateLink = async () => {
-  try {
-    const res = await axios.post(
-      `${API}/files/share/link/${fileId}`,
-      {},
-      { headers: { token } }
-    );
+    try {
+      const res = await axios.post(
+        `${API}/files/share/link/${fileId}`,
+        {},
+        { headers: { token } },
+      );
 
-    setShareLink(res.data.link);
+      setShareLink(res.data.link);
 
-    // copy to clipboard
-    navigator.clipboard.writeText(res.data.link);
-
-  } catch (err) {
-    console.log(err);
-  }
-};
-
+      // copy to clipboard
+      navigator.clipboard.writeText(res.data.link);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
-
       <div className="bg-white p-6 rounded-xl w-96">
-
         <h2 className="text-xl font-bold mb-4">Share File</h2>
 
         {/* Email Input */}
@@ -108,15 +104,13 @@ const ShareModal = ({ fileId, onClose }) => {
           className="w-full border p-2 rounded mb-3"
         />
 
-        {error && (
-          <p className="text-red-500 text-sm mb-3">{error}</p>
-        )}
+        {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
 
         {/* Permission */}
         <select
           value={permission}
           onChange={(e) => setPermission(e.target.value)}
-          className="w-full border p-2 rounded mb-3"
+          className="w-full border p-2 rounded mb-3 cursor-pointer"
         >
           <option value="view">Viewer</option>
           <option value="edit">Editor</option>
@@ -125,21 +119,21 @@ const ShareModal = ({ fileId, onClose }) => {
         {/* Share Button */}
         <button
           onClick={handleShare}
-          className="w-full bg-blue-600 text-white py-2 rounded mb-4"
+          className="w-full bg-blue-600 text-white py-2 rounded mb-4 cursor-pointer"
         >
           Share
         </button>
-        <button
-  onClick={handleGenerateLink}
-  className=" cursor-pointer w-full bg-green-600 text-white py-2 rounded mb-4"
->
-  Generate Share Link 🔗
-</button>
-{shareLink && (
-  <div className="bg-gray-100 p-2 rounded text-sm break-all">
-    {shareLink}
-  </div>
-)}
+        {/* <button
+          onClick={handleGenerateLink}
+          className=" cursor-pointer w-full bg-green-600 text-white py-2 rounded mb-4"
+        >
+          Generate Share Link 🔗
+        </button>
+        {shareLink && (
+          <div className="bg-gray-100 p-2 rounded text-sm break-all">
+            {shareLink}
+          </div>
+        )} */}
 
         {/* Shared Users */}
         <h3 className="font-semibold mb-2">Shared Users</h3>
@@ -147,11 +141,13 @@ const ShareModal = ({ fileId, onClose }) => {
         <ul>
           {shares.map((s) => (
             <li key={s.id} className="flex justify-between items-center mb-2">
-              <span>{s.shared_with_email} ({s.permission})</span>
+              <span>
+                {s.shared_with_email} ({s.permission})
+              </span>
 
               <button
                 onClick={() => handleDelete(s.id)}
-                className="text-red-500"
+                className="text-red-500 cursor-pointer"
               >
                 ❌
               </button>
@@ -160,13 +156,9 @@ const ShareModal = ({ fileId, onClose }) => {
         </ul>
 
         {/* Close */}
-        <button
-          onClick={onClose}
-          className="mt-4 text-sm text-gray-500"
-        >
+        <button onClick={onClose} className="mt-4 text-sm text-gray-500 cursor-pointer">
           Close
         </button>
-
       </div>
     </div>
   );
