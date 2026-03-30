@@ -91,9 +91,12 @@ const ShareModal = ({ fileId, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center">
-      <div className="bg-white p-6 rounded-xl w-96">
-        <h2 className="text-xl font-bold mb-4">Share File</h2>
+    <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center px-3">
+      {" "}
+      <div className="bg-white p-4 md:p-6 rounded-xl w-full max-w-md max-h-[80vh] overflow-y-auto">
+        <h2 className="text-lg md:text-xl font-bold mb-4 text-center md:text-left">
+          Share File
+        </h2>
 
         {/* Email Input */}
         <input
@@ -101,7 +104,7 @@ const ShareModal = ({ fileId, onClose }) => {
           placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full border p-2 rounded mb-3"
+          className="w-full border p-2 md:p-3 rounded mb-3 text-sm md:text-base cursor-pointer"
         />
 
         {error && <p className="text-red-500 text-sm mb-3">{error}</p>}
@@ -110,7 +113,7 @@ const ShareModal = ({ fileId, onClose }) => {
         <select
           value={permission}
           onChange={(e) => setPermission(e.target.value)}
-          className="w-full border p-2 rounded mb-3 cursor-pointer"
+          className="w-full border p-2 md:p-3 rounded mb-3 text-sm md:text-base cursor-pointer"
         >
           <option value="view">Viewer</option>
           <option value="edit">Editor</option>
@@ -119,7 +122,7 @@ const ShareModal = ({ fileId, onClose }) => {
         {/* Share Button */}
         <button
           onClick={handleShare}
-          className="w-full bg-blue-600 text-white py-2 rounded mb-4 cursor-pointer"
+          className="w-full bg-blue-600 text-white py-2 rounded mb-4 text-sm md:text-base"
         >
           Share
         </button>
@@ -140,14 +143,17 @@ const ShareModal = ({ fileId, onClose }) => {
 
         <ul>
           {shares.map((s) => (
-            <li key={s.id} className="flex justify-between items-center mb-2">
-              <span>
+            <li
+              key={s.id}
+              className="flex flex-wrap justify-between items-center gap-2 mb-2"
+            >
+              <span className="text-xs md:text-sm break-all">
                 {s.shared_with_email} ({s.permission})
               </span>
 
               <button
                 onClick={() => handleDelete(s.id)}
-                className="text-red-500 cursor-pointer"
+                className="text-red-500 cursor-pointer text-sm md:text-base"
               >
                 ❌
               </button>
@@ -156,7 +162,10 @@ const ShareModal = ({ fileId, onClose }) => {
         </ul>
 
         {/* Close */}
-        <button onClick={onClose} className="mt-4 text-sm text-gray-500 cursor-pointer">
+        <button
+          onClick={onClose}
+          className="mt-4 text-sm text-gray-500 w-full text-center md:w-auto cursor-pointer"
+        >
           Close
         </button>
       </div>

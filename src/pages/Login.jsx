@@ -71,13 +71,13 @@ const Login = () => {
   return (
 
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center px-3 md:px-0"
       style={{ backgroundImage: `url(${bg})` }}
     >
 
-      <div className="bg-black/40 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-96">
+      <div className="bg-black/40 backdrop-blur-md p-5 md:p-8 rounded-2xl shadow-2xl w-full max-w-md">
 
-        <h2 className="text-3xl font-bold text-white text-center mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-6">
           Login
         </h2>
 
@@ -89,11 +89,10 @@ const Login = () => {
             placeholder="Email"
             value={form.email}
             onChange={handleChange}
-            className="w-full p-3 mb-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
-          />
+          className="w-full p-2 md:p-3 mb-3 rounded-lg text-sm md:text-base ..."/>
 
           {errors.email && (
-            <p className="text-red-300 text-sm mb-2">
+            <p className="text-red-300 text-xs md:text-sm mb-2">
               {errors.email}
             </p>
           )}
@@ -104,11 +103,10 @@ const Login = () => {
             placeholder="Password"
             value={form.password}
             onChange={handleChange}
-            className="w-full p-3 mb-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
-          />
+className="w-full p-2 md:p-3 mb-3 rounded-lg text-sm md:text-base ..."          />
 
           {errors.password && (
-            <p className="text-red-300 text-sm mb-2">
+            <p className="text-red-300 text-xs md:text-sm mb-2">
               {errors.password}
             </p>
           )}
@@ -121,8 +119,7 @@ const Login = () => {
           <button
   type="submit"
   disabled={loading}
-  className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg mt-2 flex items-center justify-center"
->
+className="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-lg mt-2 text-sm md:text-base">
   {loading ? (
     <div className="flex items-center gap-2">
       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
@@ -138,12 +135,12 @@ const Login = () => {
 
         <button
           onClick={()=>window.open(`${AUTH_API}/google`,"_self")}
-          className="w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg"
+          className="w-full mt-3 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg text-sm md:text-base"
         >
           Login with Google
         </button>
 
-        <p className="text-center text-gray-300 mt-4">
+        <p className="text-center text-gray-300 mt-4 text-sm md:text-base">
           Don't have account?
           <Link to="/register" className="text-blue-400 ml-1">
             Register

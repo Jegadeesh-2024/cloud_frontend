@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const Pagination = ({ totalPages, currentPage, setCurrentPage }) => {
-
   const [showMore, setShowMore] = useState(false);
 
   const handleClick = (page) => {
@@ -28,19 +27,18 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage }) => {
           currentPage,
           currentPage + 1,
           "...",
-          totalPages
+          totalPages,
         ];
       }
     }
 
     return pages.map((page, index) => {
-
       if (page === "...") {
         return (
           <button
             key={index}
             onClick={() => setShowMore(true)}
-            className="px-3 py-1"
+            className="px-2 md:px-3 py-1 rounded text-xs md:text-sm"
           >
             ...
           </button>
@@ -51,10 +49,8 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage }) => {
         <button
           key={index}
           onClick={() => handleClick(page)}
-          className={`px-3 py-1 rounded ${
-            currentPage === page
-              ? "bg-purple-600 text-white"
-              : "bg-gray-200"
+          className={`px-2 md:px-3 py-1 rounded text-xs md:text-sm  ${
+            currentPage === page ? "bg-purple-600 text-white" : "bg-gray-200"
           }`}
         >
           {page}
@@ -64,26 +60,26 @@ const Pagination = ({ totalPages, currentPage, setCurrentPage }) => {
   };
 
   return (
-    <div className="flex gap-2 mt-4">
+    <div className="mt-4 overflow-x-auto">
+      <div className="flex flex-wrap md:flex-nowrap justify-center gap-2 min-w-max">
+        <button
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(currentPage - 1)}
+          className="px-2 md:px-3 py-1 bg-gray-300 rounded text-xs md:text-sm disabled:opacity-50"
+        >
+          Prev
+        </button>
 
-      <button
-        disabled={currentPage === 1}
-        onClick={() => setCurrentPage(currentPage - 1)}
-        className="px-3 py-1 bg-gray-300 rounded"
-      >
-        Prev
-      </button>
+        {renderPages()}
 
-      {renderPages()}
-
-      <button
-        disabled={currentPage === totalPages}
-        onClick={() => setCurrentPage(currentPage + 1)}
-        className="px-3 py-1 bg-gray-300 rounded"
-      >
-        Next
-      </button>
-
+        <button
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage(currentPage + 1)}
+          className="px-2 md:px-3 py-1 text-xs md:text-sm"
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };

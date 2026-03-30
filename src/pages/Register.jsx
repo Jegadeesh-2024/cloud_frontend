@@ -62,13 +62,13 @@ const Register = () => {
   return (
 
     <div
-      className="min-h-screen flex items-center justify-center bg-cover bg-center"
+      className="min-h-screen flex items-center justify-center bg-cover bg-center px-3 md:px-0"
       style={{ backgroundImage: `url(${bg})` }}
     >
 
-      <div className="bg-black/40 backdrop-blur-md p-8 rounded-2xl shadow-2xl w-96">
+      <div className="bg-black/40 backdrop-blur-md p-5 md:p-8 rounded-2xl shadow-2xl w-full max-w-md border border-white/20 transition md:hover:scale-105">
 
-        <h2 className="text-3xl font-bold text-white text-center mb-6">
+        <h2 className="text-2xl md:text-3xl font-bold text-white text-center mb-6">
           Register
         </h2>
 
@@ -80,11 +80,10 @@ const Register = () => {
             value={form.name}
             placeholder="Name"
             onChange={handleChange}
-            className="w-full p-3 mb-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
-          />
+className="w-full p-2 md:p-3 mb-3 rounded-lg text-sm md:text-base bg-white/20 text-white placeholder-gray-300 outline-none"          />
 
           {errors.name && (
-            <p className="text-red-300 text-sm mb-2">
+            <p className="text-red-300 text-xs md:text-sm mb-2">
               {errors.name}
             </p>
           )}
@@ -95,11 +94,10 @@ const Register = () => {
             value={form.email}
             placeholder="Email"
             onChange={handleChange}
-            className="w-full p-3 mb-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
-          />
+className="w-full p-2 md:p-3 mb-3 rounded-lg text-sm md:text-base bg-white/20 text-white placeholder-gray-300 outline-none"          />
 
           {errors.email && (
-            <p className="text-red-300 text-sm mb-2">
+            <p className="text-red-300 text-xs md:text-sm mb-2">
               {errors.email}
             </p>
           )}
@@ -110,11 +108,10 @@ const Register = () => {
             value={form.password}
             placeholder="Password"
             onChange={handleChange}
-            className="w-full p-3 mb-3 rounded-lg bg-white/20 text-white placeholder-gray-300 outline-none"
-          />
+className="w-full p-2 md:p-3 mb-3 rounded-lg text-sm md:text-base bg-white/20 text-white placeholder-gray-300 outline-none"          />
 
           {errors.password && (
-            <p className="text-red-300 text-sm mb-2">
+            <p className="text-red-300 text-xs md:text-sm mb-2">
               {errors.password}
             </p>
           )}
@@ -124,9 +121,9 @@ const Register = () => {
           >
             Register
           </button> */}
-          <button
-  setLoading={loading}
-  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-2 flex items-center justify-center">
+          <button type="submit"
+  disabled={loading}
+  className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg mt-2 flex items-center justify-center text-sm md:text-base">
 
   {loading ? (
   <div className="flex items-center gap-2">
@@ -140,7 +137,7 @@ const Register = () => {
 
         </form>
 
-        <p className="text-center text-gray-300 mt-4">
+       <p className="text-center text-gray-300 mt-4 text-sm md:text-base">
           Already have account?
           <Link to="/" className="text-blue-400 ml-1">
             Login

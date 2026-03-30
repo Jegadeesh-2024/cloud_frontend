@@ -40,11 +40,11 @@ const CreateFolder = () => {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex flex-col md:flex-row h-screen bg-gray-100">
 
       {/* SIDEBAR */}
-      <div className="w-64 bg-white p-5 shadow-md">
-        <h2 className="text-xl font-bold mb-6">My Drive</h2>
+      <div className="w-full md:w-64 bg-white p-5 shadow-md:block justify-between items-center">
+        <h2 className="text-xl font-bold ">My Drive</h2>
 
         
       </div>
@@ -53,7 +53,7 @@ const CreateFolder = () => {
       <div className="flex-1 flex flex-col">
 
         {/* 🔥 TOPBAR */}
-        <div className="bg-white p-4 shadow flex items-center justify-between w-full">
+        <div className="bg-white p-4 shadow flex items-center justify-between w-full flex-wrap gap-2">
           <h1 className="font-semibold text-lg">Folder</h1>
 
           <button
@@ -65,7 +65,7 @@ const CreateFolder = () => {
         </div>
 
         {/* CONTENT AREA */}
-        <div className="relative flex flex-col items-center p-6 flex-1">
+        <div className="relative flex flex-col items-center p-4 md:p-6 flex-1">
 
           {/* Gradient Background */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 via-purple-900/70 to-pink-900/70"></div>
@@ -73,7 +73,7 @@ const CreateFolder = () => {
           <div className="relative z-10 flex flex-col items-center w-full">
 
             {/* CREATE FOLDER CARD */}
-            <div className="bg-white/90 backdrop-blur-md shadow-xl rounded-2xl p-6 w-full max-w-md mb-10">
+            <div className="bg-white/90 backdrop-blur-md shadow-xl rounded-2xl p-4 md:p-6 w-full max-w-md mb-6 md:mb-10">
 
               <h2 className="text-xl font-bold text-center mb-4 text-gray-800">
                 Create Folder
@@ -84,7 +84,7 @@ const CreateFolder = () => {
                 placeholder="Folder name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-3"
+                className="w-full border border-gray-300 rounded-lg px-4 py-2 mb-3 text-sm md:text-base"
               />
 
               {error && (
@@ -93,7 +93,7 @@ const CreateFolder = () => {
 
               <button
                 onClick={handleCreate}
-                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 rounded-lg"
+                className="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-2 rounded-lg text-sm md:text-base"
               >
                 Create Folder
               </button>

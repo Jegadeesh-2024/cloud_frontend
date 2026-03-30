@@ -105,7 +105,7 @@ const FileList = ({ folderId, refresh, page, setPage, setTotalPages }) => {
   };
 
   return (
-    <div className="p-4">
+    <div className="p-3 md:p-4">
       {/* 🔍 SEARCH + SORT */}
       <div className="flex flex-col md:flex-row gap-3 mb-6">
         <input
@@ -113,13 +113,13 @@ const FileList = ({ folderId, refresh, page, setPage, setTotalPages }) => {
           placeholder="Search files..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="border px-3 py-2 rounded w-full md:w-64"
+          className="border px-3 py-2 rounded w-full md:w-64 text-sm md:text-base"
         />
 
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="border px-3 py-2 rounded w-full md:w-40"
+          className="border px-3 py-2 rounded w-full md:w-40 text-sm md:text-base"
         >
           <option value="">Sort</option>
           <option value="name">Name</option>
@@ -128,7 +128,7 @@ const FileList = ({ folderId, refresh, page, setPage, setTotalPages }) => {
       </div>
 
       {/* 📂 FILE CARDS */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
         {filteredFiles.length === 0 && (
           <p className="col-span-full text-center text-gray-400">
             No files found
@@ -138,16 +138,16 @@ const FileList = ({ folderId, refresh, page, setPage, setTotalPages }) => {
         {filteredFiles.map((file) => (
           <div
             key={file.id}
-            className="border p-4 rounded-lg shadow bg-white hover:shadow-md transition"
+            className="border p-3 md:p-4 rounded-lg shadow bg-white hover:shadow-md transition"
           >
             <p className="text-3xl text-center">📄</p>
 
-            <p className="text-sm mt-2 text-center truncate">{file.name}</p>
+            <p className="text-xs md:text-sm mt-2 text-center truncate">{file.name}</p>
 
-            <div className="flex justify-center gap-2 mt-3">
+            <div className="flex flex-wrap justify-center gap-2 mt-3">
               <button
                 onClick={() => renameFile(file)}
-                className="bg-yellow-500 text-white px-2 py-1 rounded text-xs cursor-pointer"
+                className="bg-yellow-500 text-white px-2 md:px-3 py-1 rounded text-xs md:text-sm cursor-pointer"
               >
                 Edit
               </button>
@@ -177,9 +177,13 @@ const FileList = ({ folderId, refresh, page, setPage, setTotalPages }) => {
         ))}
        
       </div>
-       <Pagination totalPages={totalPages}
-        currentPage={page}
-        setCurrentPage={setPage}/>
+       <div className="flex justify-center overflow-x-auto mt-4">
+  <Pagination
+    totalPages={totalPages}
+    currentPage={page}
+    setCurrentPage={setPage}
+  />
+</div>
 
       {/* Share Modal */}
       {selectedFile && (

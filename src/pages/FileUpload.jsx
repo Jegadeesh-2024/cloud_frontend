@@ -22,6 +22,7 @@ function FileUpload() {
   const [view, setView] = useState("files");
   const [trashFiles, setTrashFiles] = useState([]);
   const [sharedFiles, setSharedFiles] = useState([]);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
@@ -111,12 +112,12 @@ function FileUpload() {
     navigate("/folder")
   }
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex flex-col md:flex-row min-h-screen bg-gray-100">
       {/* SIDEBAR */}
-      <div className="w-64 bg-white p-5 shadow-md">
+      <div className={`${showSidebar ? "block" : "hidden"} md:block w-full md:w-64 bg-white p-4 md:p-5 shadow-md`}>
         <h2 className="text-xl font-bold mb-6">My Drive</h2>
 
-        <ul className="space-y-4">
+        <ul className="flex md:block gap-4 md:space-y-4 overflow-x-auto">
          
           <li
             onClick={redirectFolder}
@@ -125,7 +126,7 @@ function FileUpload() {
             📁 My Folders
           </li>
            <li
-            onClick={() => setView("files")}
+            onClick={() => {setView("files");setShowSidebar(false)}}
             className={`cursor-pointer ${view === "files" ? "text-blue-600 font-semibold" : ""}`}
           >
             📁 My Files
@@ -135,8 +136,9 @@ function FileUpload() {
             onClick={() => {
               setView("trash");
               fetchTrashFiles();
+              setShowSidebar(false)
             }}
-            className={`cursor-pointer ${view === "trash" ? "text-blue-600 font-semibold" : ""}`}
+            className={`cursor-pointer  ${view === "trash" ? "text-blue-600 font-semibold" : ""}`}
           >
             🗑 Trash
           </li>
@@ -144,6 +146,7 @@ function FileUpload() {
             onClick={() => {
               setView("shared");
               fetchSharedFiles();
+              setShowSidebar(false)
             }}
             className={`cursor-pointer ${view === "shared" ? "text-blue-600 font-semibold" : ""}`}
           >
@@ -155,11 +158,11 @@ function FileUpload() {
       {/* RIGHT SIDE */}
       <div className="flex-1 flex flex-col">
         {/* Topbar */}
-        <div className="bg-white p-4 shadow flex items-center ">
-          <h1 className="font-semibold">Dashboard</h1>
+        <div className="bg-white p-3 md:p-4 shadow flex items-center">
+          <h1 className="font-semibold text-sm md:text-base">Dashboard</h1>
           <button
           onClick={logout}
-          className=" ml-auto bg-red-500 text-white px-4 py-2 rounded cursor-pointer w-20 justify-end"
+          className=" ml-auto bg-red-500 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm"
         >
           Logout
         </button>
@@ -167,7 +170,7 @@ function FileUpload() {
         
 
         {/* Breadcrumb */}
-        <div className="p-4 text-sm text-gray-500">
+        <div className="p-2 md:p-4 text-xs md:text-sm text-gray-500">
           Home / {view === "files" ? "My Files" : "Trash"}
         </div>
 
@@ -183,7 +186,7 @@ function FileUpload() {
                   e.preventDefault();
                   setFile(e.dataTransfer.files[0]);
                 }}
-                className="border-2 border-dashed p-10 text-center bg-white rounded shadow cursor-pointer"
+                className="border-2 border-dashed p-6 md:p-10 text-center bg-white rounded shadow cursor-pointer"
               >
                 Drag & Drop or Click to Upload
                 <input
@@ -200,13 +203,13 @@ function FileUpload() {
               <button
                 onClick={uploadFile}
                 disabled={loading}
-                className="mt-3 bg-blue-600  text-white px-4 py-2 rounded"
+                className="mt-3 bg-blue-600 text-white px-3 md:px-4 py-1 md:py-2 rounded text-sm"
               >
                 {loading ? "Uploading..." : "Upload"}
               </button>
             </div>
             {uploading && (
-              <div className="mt-4 w-full max-w-md">
+              <div className="mt-4 w-full max-w-full md:max-w-md px-2 md:px-0">
                 {/* Progress bar */}
                 <div className="w-full bg-gray-200 rounded-full h-3">
                   <div
@@ -291,7 +294,7 @@ function FileUpload() {
 
         {/* SHARE VIEW */}
         {view === "shared" && (
-          <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
             {sharedFiles.length === 0 && (
               <p className="text-gray-400 col-span-full text-center">
                 No shared files
